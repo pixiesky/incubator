@@ -77,7 +77,9 @@ class Memory
         foreach ($this->config->resource as $name => $resource) {
             $actions = (array) $resource->get('actions');
             if (!$actions) {
-                $actions = null;
+                // $actions = null // breaking acl in Phalcon 1.3 Application
+                // http://forum.phalconphp.com/discussion/6619/phalconaclexception-with-message-invalid-value-for-accesslist-in
+                continue;
             }
             $this->acl->addResource(
                 $this->makeResource($name, $resource->description),
